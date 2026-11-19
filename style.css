@@ -13,13 +13,9 @@ html, body {
   background: #000;
   color: #fff;
 }
-
-@media (max-width: 650px) {
-  body {
-    font-family: "Comic Sans MS", "Comic Sans", cursive !important;
-  }
+body {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
-
 /* HEADER */
 .page-header {
   position: relative;
