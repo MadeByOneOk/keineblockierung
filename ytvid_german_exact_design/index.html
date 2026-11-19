@@ -1,0 +1,84 @@
+
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+
+  <title>Keine Blockierung!</title>
+  <link rel="icon" href="./2026_09_04_0pt_Kleki.png?v=2" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="page-header">
+    <img
+      src="./2026_11_17_0wv_Kleki.png"
+      class="kleki-decoration"
+      alt=""
+    >
+
+    <h1>Plattform zur Wiedergabe urheberrechtlich<br class="desktop-break"> geschützter Musik</h1>
+
+    <img
+      src="./7K762QX4IAOJBA3WOKJRMTOJX6AJUIZL%20(1).gif"
+      class="gif-decoration"
+      alt=""
+    >
+  </header>
+
+  <main class="columns">
+
+    <aside class="instructions">
+      <p>Wenn du die YTVID eingegeben hast und kein Ergebnis angezeigt wird, stelle sicher, dass du sie richtig eingegeben hast. Andernfalls wurde das Lied noch nicht auf diesen Server hochgeladen.</p>
+
+      <p>(FÜR SCHÜLER!) Sammelt YTVIDs und fügt sie in GOOGLE-DOKUMENTE EIN, DAMIT IHR SIE AUF DEM CAMPUS EINFACH KOPIEREN KÖNNT.</p>
+
+      <div class="upload-area">
+        <a
+          href="https://docs.google.com/document/d/1SI2PHiWmp4WZYbSvWgQEdBuxRUtbkW_8xE6vgiY3HzM/edit?authuser=t25574438%40gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="upload-link"
+        >
+          GOOGLE-DOKUMENTE ÖFFNEN ↗
+        </a>
+
+        <p>
+          (EMPFEHLUNGEN?)
+          <a href="mailto:t25574438@gmail.com">
+            E-MAIL MIR!
+          </a>
+        </p>
+      </div>
+    </aside>
+
+    <section class="player-area">
+      <form id="lookupForm" autocomplete="off">
+        <label for="ytvid">YTVID hier eingeben</label>
+
+        <div class="input-row">
+          <input
+            id="ytvid"
+            type="text"
+            spellcheck="false"
+            aria-label="YTVID hier eingeben"
+          >
+          <button type="submit" aria-label="YTVID suchen">↵</button>
+        </div>
+      </form>
+
+      <div id="message" class="message" role="status"></div>
+    </section>
+
+  </main>
+
+  <audio id="audio" preload="metadata"></audio>
+  <script src="script.js"></script>
+  <div class="version">v0.0.1</div>
+
+</body>
+</html>
