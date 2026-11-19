@@ -57,6 +57,19 @@ body {
   pointer-events: none;
 }
 
+@media (max-width: 650px) {
+  .gif-decoration {
+    width: 40px;
+    right: 5px;
+    bottom: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .gif-decoration {
+    display: none;
+  }
+}
 /* MAIN LAYOUT */
 .columns {
   min-height: calc(100vh - 175px);
