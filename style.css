@@ -14,8 +14,10 @@ html, body {
   color: #fff;
 }
 
-body {
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+@media (max-width: 650px) {
+  body {
+    font-family: "Comic Sans MS", "Comic Sans", cursive !important;
+  }
 }
 
 /* HEADER */
@@ -245,9 +247,4 @@ body {
 }
 .message {
   color: white;
-}
-@media (max-width: 650px) {
-  body {
-    font-family: "Comic Sans MS", "Comic Sans", cursive !important;
-  }
 }
