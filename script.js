@@ -1,19 +1,32 @@
 
-async function playSong(url, title, author) {
-  audio.src = url;
+const API_URL = "https://script.google.com/macros/s/AKfycbxpQMnd5R6rcEybyze9EPAfrSL3Ps0AmNah53Wy77dJs18dhaA4IkFfTX94QufQiH3yvA/exec";
+
+const form = document.getElementById("lookupForm");
+const input = document.getElementById("ytvid");
+const audio = document.getElementById("audio");
+const message = document.getElementById("message");
+const randomButton = document.getElementById("randomSong");
+
+// PLAY A SONG
+async function playSong(result) {
+  audio.src = result.url;
   await audio.play();
 
-  message.textContent = "Jetzt läuft: " + title +
-    (author ? " - " + author : "");
+  const songName = result.title || result.code || "Unbekannt";
+  const author = result.author ? " - " + result.author : "";
+
+  message.textContent =
+    "Jetzt läuft: " + songName + author;
 
   message.classList.add("success");
 }
 
-// NORMAL SEARCH
+// NORMAL YTVID SEARCH
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const code = input.value.trim();
+
   if (!code) return;
 
   message.textContent = "Suche läuft...";
@@ -31,17 +44,18 @@ form.addEventListener("submit", async (event) => {
       return;
     }
 
-    await playSong(result.url, result.title || code, result.author || "");
+    await playSong(result);
 
   } catch (error) {
     message.textContent = "Fehler: " + error.message;
-    console.error(error);
+    console.error("Search error:", error);
   }
 });
 
-// RANDOM SONG
+// RANDOM SONG BUTTON
 randomButton.addEventListener("click", async () => {
   randomButton.disabled = true;
+
   message.textContent = "Zufälliges Lied wird gesucht...";
   message.classList.remove("success");
 
@@ -50,14 +64,15 @@ randomButton.addEventListener("click", async () => {
     const result = await response.json();
 
     if (!result.url) {
-      throw new Error(result.error || "Kein Lied gefunden");
+      throw new Error(result.error || "Kein Lied gefunden.");
     }
 
-    await playSong(result.url, result.title, result.author);
+    await playSong(result);
 
   } catch (error) {
     message.textContent = "Fehler: " + error.message;
-    console.error(error);
+    console.error("Random song error:", error);
+
   } finally {
     randomButton.disabled = false;
   }
