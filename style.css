@@ -278,3 +278,26 @@ body {
     margin-top: 10px;
   }
 }
+/* FORCE VERTICAL PLAYER LAYOUT */
+.player-area {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#lookupForm {
+  flex: none !important;
+}
+
+.message {
+  position: static !important;
+  margin-top: 10px !important;
+}
+
+#randomSong {
+  display: block !important;
+  position: static !important;
+  align-self: center !important;
+  margin: 20px auto 0 !important;
+}
