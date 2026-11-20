@@ -278,6 +278,26 @@ body {
   background: #ff1018;
   color: black;
 }
+  #randomSong {
+  display: block;
+  position: relative;
+  margin: 55px auto 0;
+
+  background: black;
+  color: #ff1018;
+  border: 3px solid #ff1018;
+
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 18px;
+
+  padding: 10px 22px;
+  cursor: pointer;
+}
+
+#randomSong:hover {
+  background: #ff1018;
+  color: black;
+}
   height: auto;
   margin: 35px auto 0;
 }
