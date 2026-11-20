@@ -255,33 +255,26 @@ body {
 *:active {
   cursor: url("./Cursor.png") 8 8, grabbing;
 }
+
 .message {
   color: white;
 }
+
+/* Sidebar image */
 .sidebar-image {
   display: block;
   width: 100%;
   max-width: 500px;
-  #randomSong {
-  display: block;
-  margin: 35px auto;
-  padding: 12px 20px;
-  background: black;
-  color: #ff1018;
-  border: 3px solid #ff1018;
-  font-family: inherit;
-  font-size: 16px;
-  cursor: pointer;
+  height: auto;
+  margin: 35px auto 0;
 }
 
-#randomSong:hover {
-  background: #ff1018;
-  color: black;
-}
-  #randomSong {
+/* Random song button */
+#randomSong {
   display: block;
-  position: relative;
-  margin: 55px auto 0;
+  position: static;
+  margin: 35px auto 0;
+  padding: 10px 22px;
 
   background: black;
   color: #ff1018;
@@ -289,15 +282,10 @@ body {
 
   font-family: "Comic Sans MS", "Comic Sans", cursive;
   font-size: 18px;
-
-  padding: 10px 22px;
   cursor: pointer;
 }
 
 #randomSong:hover {
   background: #ff1018;
   color: black;
-}
-  height: auto;
-  margin: 35px auto 0;
 }
