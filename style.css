@@ -258,3 +258,10 @@ body {
 .message {
   color: white;
 }
+.sidebar-image {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 35px auto 0;
+}
