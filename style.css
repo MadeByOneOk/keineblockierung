@@ -301,3 +301,20 @@ body {
   align-self: center !important;
   margin: 20px auto 0 !important;
 }
+/* GITHUB LINK */
+.github-link {
+  position: fixed;
+  bottom: 8px;
+  left: 12px;
+  color: #777;
+  font: 12px Arial, sans-serif;
+  opacity: 0.7;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.github-link:hover {
+  color: #ff1018;
+  opacity: 1;
+  text-decoration: underline;
+}
