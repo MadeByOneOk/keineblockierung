@@ -1,15 +1,19 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxpQMnd5R6rcEybyze9EPAfrSL3Ps0AmNah53Wy77dJs18dhaA4IkFfTX94QufQiH3yvA/exec";
 
-const form = document.getElementById("lookupForm");
-const input = document.getElementById("ytvid");
-const audio = document.getElementById("audio");
-const message = document.getElementById("message");
+async function playSong(url, title, author) {
+  audio.src = url;
+  await audio.play();
 
+  message.textContent = "Jetzt läuft: " + title +
+    (author ? " - " + author : "");
+
+  message.classList.add("success");
+}
+
+// NORMAL SEARCH
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const code = input.value.trim();
-
   if (!code) return;
 
   message.textContent = "Suche läuft...";
@@ -27,14 +31,34 @@ form.addEventListener("submit", async (event) => {
       return;
     }
 
-    audio.src = result.url;
-    await audio.play();
+    await playSong(result.url, result.title || code, result.author || "");
 
-    message.textContent = "Treffer gefunden! Lied wird abgespielt!";
-message.classList.add("success");
   } catch (error) {
     message.textContent = "Fehler: " + error.message;
-console.error("Audio error:", error);
     console.error(error);
+  }
+});
+
+// RANDOM SONG
+randomButton.addEventListener("click", async () => {
+  randomButton.disabled = true;
+  message.textContent = "Zufälliges Lied wird gesucht...";
+  message.classList.remove("success");
+
+  try {
+    const response = await fetch(API_URL + "?action=random");
+    const result = await response.json();
+
+    if (!result.url) {
+      throw new Error(result.error || "Kein Lied gefunden");
+    }
+
+    await playSong(result.url, result.title, result.author);
+
+  } catch (error) {
+    message.textContent = "Fehler: " + error.message;
+    console.error(error);
+  } finally {
+    randomButton.disabled = false;
   }
 });
