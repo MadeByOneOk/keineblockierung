@@ -9,17 +9,20 @@
   <title>Keine Blockierung!</title>
   <link rel="icon" href="./2026_09_04_0pt_Kleki.png?v=2" type="image/png">
   <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/tone@15.1.22/build/Tone.js"></script>
 </head>
-  <a
-  class="github-link"
-  href="https://github.com/MadeByOneOk/keineblockierung"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  GitHub ↗
-</a>
 
 <body>
+
+  <a
+    class="github-link"
+    href="https://github.com/MadeByOneOk/keineblockierung"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    GitHub ↗
+  </a>
 
   <header class="page-header">
     <img
@@ -28,7 +31,10 @@
       alt=""
     >
 
-    <h1>Plattform zur Wiedergabe urheberrechtlich<br class="desktop-break"> geschützter Musik</h1>
+    <h1>
+      Plattform zur Wiedergabe urheberrechtlich<br class="desktop-break">
+      geschützter Musik
+    </h1>
 
     <img
       src="./7K762QX4IAOJBA3WOKJRMTOJX6AJUIZL%20(1).gif"
@@ -40,13 +46,21 @@
   <main class="columns">
 
     <aside class="instructions">
-      <p>Wenn du die code eingegeben hast und kein Ergebnis angezeigt wird, stelle sicher, dass du sie richtig eingegeben hast. Andernfalls wurde das Lied noch nicht auf diesen Server Hochgeladen.</p>
+      <p>
+        Wenn du die code eingegeben hast und kein Ergebnis angezeigt wird,
+        stelle sicher, dass du sie richtig eingegeben hast. Andernfalls
+        wurde das Lied noch nicht auf diesen Server Hochgeladen.
+      </p>
 
-      <p>( FÜR SCHÜLER! ) SAMMELT CODES UND FÜGT SIE IN GOOGLE-DOKUMENTE EIN, DAMIT IHR SIE AUF DEM CAMPUS EINFACH KOPIEREN KÖNNT. *Falls es nicht funktioniert :)</p>
+      <p>
+        ( FÜR SCHÜLER! ) SAMMELT CODES UND FÜGT SIE IN GOOGLE-DOKUMENTE EIN,
+        DAMIT IHR SIE AUF DEM CAMPUS EINFACH KOPIEREN KÖNNT.
+        *Falls es nicht funktioniert :)
+      </p>
 
       <div class="upload-area">
         <a
-          href="https://docs.google.com/document/d/1SI2PHiWmp4WZYbSvWgQEdBuxRUtbkW_8xE6vgiY3HzM/edit?authuser=t25574438%40gmail.com"
+          href="https://docs.google.com/document/d/1SI2PHiWmp4WZYbSvWgQEdBuxRUtbkW_8xE6vgiY3HzM/edit"
           target="_blank"
           rel="noopener noreferrer"
           class="upload-link"
@@ -56,9 +70,7 @@
 
         <p>
           (EMPFEHLUNGEN?)
-          <a href="mailto:t25574438@gmail.com">
-            E-MAIL MIR!
-          </a>
+          <a href="mailto:t25574438@gmail.com">E-MAIL MIR!</a>
         </p>
       </div>
 
@@ -81,6 +93,7 @@
             spellcheck="false"
             aria-label="YTVID hier eingeben"
           >
+
           <button type="submit" aria-label="YTVID suchen">↵</button>
         </div>
       </form>
@@ -91,11 +104,26 @@
         ZUFÄLLIGES LIED &gt;:)
       </button>
 
+      <div class="bass-control">
+        <label for="bassSlider">
+          BASS BOOST:
+          <span id="bassValue">1 dB</span>
+          <span id="bassFace">;)</span>
+        </label>
+
+        <input
+          type="range"
+          id="bassSlider"
+          min="1"
+          max="50"
+          value="1"
+        >
+      </div>
+
+      <canvas id="visualizer" width="700" height="100"></canvas>
+
     </section>
-
   </main>
-
-  <audio id="audio" preload="metadata"></audio>
 
   <script src="script.js"></script>
 
