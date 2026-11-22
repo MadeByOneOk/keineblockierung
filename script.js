@@ -1,27 +1,114 @@
-
 const API_URL = "https://script.google.com/macros/s/AKfycbxpQMnd5R6rcEybyze9EPAfrSL3Ps0AmNah53Wy77dJs18dhaA4IkFfTX94QufQiH3yvA/exec";
 
 const form = document.getElementById("lookupForm");
 const input = document.getElementById("ytvid");
-const audio = document.getElementById("audio");
 const message = document.getElementById("message");
 const randomButton = document.getElementById("randomSong");
 
-// PLAY A SONG
-async function playSong(result) {
-  audio.src = result.url;
-  await audio.play();
+const bassSlider = document.getElementById("bassSlider");
+const bassValue = document.getElementById("bassValue");
+const bassFace = document.getElementById("bassFace");
 
-  const songName = result.title || result.code || "Unbekannt";
-  const author = result.author ? " - " + result.author : "";
+const bassFilter = new Tone.Filter({
+  type: "lowshelf",
+  frequency: 150,
+  gain: 1
+}).toDestination();
 
-  message.textContent =
-    "Jetzt läuft: " + songName + author;
+let player = null;
 
-  message.classList.add("success");
+/* BASS CONTROL */
+function updateBass() {
+  const value = Number(bassSlider.value);
+
+  bassFilter.gain.rampTo(value, 0.1);
+  bassValue.textContent = value + " dB";
+
+  if (value <= 10) {
+    bassFace.textContent = ";)";
+  } else if (value <= 20) {
+    bassFace.textContent = ":)";
+  } else if (value <= 30) {
+    bassFace.textContent = ":0";
+  } else if (value <= 40) {
+    bassFace.textContent = ":l";
+  } else {
+    bassFace.textContent = ">:)";
+  }
 }
 
-// NORMAL YTVID SEARCH
+bassSlider.addEventListener("input", updateBass);
+updateBass();
+
+/* STOP CURRENT SONG SAFELY */
+function stopCurrentPlayer() {
+  if (!player) return;
+
+  try {
+    if (player.state === "started") {
+      player.stop();
+    }
+  } catch (error) {
+    console.warn("Player stop:", error);
+  }
+
+  player.dispose();
+  player = null;
+}
+
+/* PLAY A SONG */
+async function playSong(result) {
+  stopCurrentPlayer();
+
+  if (!result.url) {
+    throw new Error(result.error || "Kein Lied gefunden.");
+  }
+
+  const nextPlayer = new Tone.Player({
+    url: result.url,
+
+    onload: () => {
+      if (player !== nextPlayer) return;
+
+      nextPlayer.start();
+      
+
+      message.textContent =
+        "Jetzt läuft: " +
+        (result.title || result.code || "Unbekannt") +
+        (result.author ? " - " + result.author : "");
+
+      message.classList.add("success");
+    },
+
+    onerror: (error) => {
+      message.textContent = "Audiofehler: " + error.message;
+      message.classList.remove("success");
+    }
+  });
+
+  player = nextPlayer;
+  nextPlayer.connect(bassFilter);
+}
+
+/* LOOKUP SONG */
+async function lookup(url) {
+  stopCurrentPlayer();
+
+  message.textContent = "Suche läuft...";
+  message.classList.remove("success");
+
+  const response = await fetch(url);
+  const result = await response.json();
+
+  if (!result.url) {
+    throw new Error(result.error || "Kein passendes Lied gefunden.");
+  }
+
+  await playSong(result);
+}
+
+/* NORMAL SONG SEARCH */
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -29,51 +116,77 @@ form.addEventListener("submit", async (event) => {
 
   if (!code) return;
 
-  message.textContent = "Suche läuft...";
-  message.classList.remove("success");
-
   try {
-    const response = await fetch(
+    await Tone.start();
+
+    await lookup(
       API_URL + "?code=" + encodeURIComponent(code)
     );
 
-    const result = await response.json();
-
-    if (!result.url) {
-      message.textContent = "Kein passendes Lied gefunden.";
-      return;
-    }
-
-    await playSong(result);
-
   } catch (error) {
     message.textContent = "Fehler: " + error.message;
+    message.classList.remove("success");
     console.error("Search error:", error);
   }
 });
 
-// RANDOM SONG BUTTON
+/* RANDOM SONG */
 randomButton.addEventListener("click", async () => {
   randomButton.disabled = true;
 
-  message.textContent = "Zufälliges Lied wird gesucht...";
-  message.classList.remove("success");
-
   try {
-    const response = await fetch(API_URL + "?action=random");
-    const result = await response.json();
+    await Tone.start();
 
-    if (!result.url) {
-      throw new Error(result.error || "Kein Lied gefunden.");
-    }
-
-    await playSong(result);
+    await lookup(API_URL + "?action=random");
 
   } catch (error) {
     message.textContent = "Fehler: " + error.message;
+    message.classList.remove("success");
     console.error("Random song error:", error);
 
   } finally {
     randomButton.disabled = false;
   }
 });
+
+/* AUDIO VISUALIZER */
+const analyser = new Tone.Analyser("fft", 64);
+bassFilter.connect(analyser);
+
+const canvas = document.getElementById("visualizer");
+const ctx = canvas.getContext("2d");
+
+function drawVisualizer() {
+  requestAnimationFrame(drawVisualizer);
+
+  const data = analyser.getValue();
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const bars = 48;
+  const barWidth = canvas.width / bars;
+
+  for (let i = 0; i < bars; i++) {
+    const value = Math.max(
+      0,
+      Math.min(1, (data[i] + 100) / 100)
+    );
+
+    const height = Math.max(2, value * canvas.height);
+
+    ctx.fillStyle = "#ff1018";
+    ctx.shadowColor = "#ff1018";
+    ctx.shadowBlur = 12;
+
+    ctx.fillRect(
+      i * barWidth + 2,
+      canvas.height - height,
+      barWidth - 4,
+      height
+    );
+  }
+
+  ctx.shadowBlur = 0;
+}
+
+drawVisualizer();
