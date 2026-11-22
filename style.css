@@ -18,7 +18,6 @@ body {
   font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-/* CUSTOM CURSOR */
 * {
   cursor: url("./Cursor.png") 8 8, auto;
 }
@@ -27,7 +26,6 @@ body {
   cursor: url("./Cursor.png") 8 8, grabbing;
 }
 
-/* HEADER */
 .page-header {
   position: relative;
   height: 175px;
@@ -47,7 +45,6 @@ body {
   letter-spacing: .2px;
 }
 
-/* HEADER DECORATIONS */
 .kleki-decoration {
   position: absolute;
   left: 20px;
@@ -82,7 +79,6 @@ body {
   }
 }
 
-/* MAIN LAYOUT */
 .columns {
   min-height: calc(100vh - 175px);
   display: grid;
@@ -103,7 +99,6 @@ body {
   margin: 0 0 19px;
 }
 
-/* SIDEBAR IMAGE */
 .sidebar-image {
   display: block;
   width: 100%;
@@ -112,18 +107,18 @@ body {
   margin: 35px auto 0;
 }
 
-/* PLAYER */
 .player-area {
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
   padding: 30px 22px;
 }
 
 #lookupForm {
   width: min(100%, 445px);
+  flex: none !important;
 }
 
 #lookupForm label {
@@ -167,10 +162,9 @@ body {
   cursor: pointer;
 }
 
-/* STATUS MESSAGE */
 .message {
-  position: static;
-  margin-top: 10px;
+  position: static !important;
+  margin-top: 10px !important;
   width: min(445px, 90%);
   min-height: 16px;
   color: white;
@@ -182,11 +176,11 @@ body {
   color: #00ff66;
 }
 
-/* RANDOM SONG BUTTON */
 #randomSong {
-  display: block;
-  position: static;
-  margin: 20px auto 0;
+  display: block !important;
+  position: static !important;
+  align-self: center !important;
+  margin: 20px auto 0 !important;
   padding: 10px 22px;
   background: black;
   color: var(--rot);
@@ -201,7 +195,42 @@ body {
   color: black;
 }
 
-/* GOOGLE DOCS AND EMAIL */
+#randomSong:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.bass-control {
+  width: min(300px, 90%);
+  margin: 25px auto 0;
+  text-align: center;
+  color: var(--rot);
+  font-family: "Comic Sans MS", cursive;
+}
+
+.bass-control label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+#bassSlider {
+  width: 100%;
+  accent-color: var(--rot);
+  cursor: pointer;
+}
+
+#visualizer {
+  display: block;
+  width: 100%;
+  max-width: 700px;
+  height: 100px;
+  margin: 20px auto;
+  background: #050000;
+  border: 1px solid var(--rot);
+  border-radius: 8px;
+}
+
 .upload-area {
   margin-top: 28px;
 }
@@ -218,7 +247,6 @@ body {
   cursor: pointer;
 }
 
-/* VERSION */
 .version {
   position: fixed;
   bottom: 8px;
@@ -228,7 +256,23 @@ body {
   opacity: 0.7;
 }
 
-/* MOBILE */
+.github-link {
+  position: fixed;
+  bottom: 8px;
+  left: 12px;
+  color: #777;
+  font: 12px Arial, sans-serif;
+  opacity: 0.7;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.github-link:hover {
+  color: var(--rot);
+  opacity: 1;
+  text-decoration: underline;
+}
+
 @media (max-width: 650px) {
   .page-header {
     height: auto;
@@ -278,43 +322,12 @@ body {
     margin-top: 10px;
   }
 }
-/* FORCE VERTICAL PLAYER LAYOUT */
-.player-area {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
+#lookupForm label {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
 }
-
-#lookupForm {
-  flex: none !important;
-}
-
-.message {
-  position: static !important;
-  margin-top: 10px !important;
-}
-
-#randomSong {
-  display: block !important;
-  position: static !important;
-  align-self: center !important;
-  margin: 20px auto 0 !important;
-}
-/* GITHUB LINK */
-.github-link {
-  position: fixed;
-  bottom: 8px;
-  left: 12px;
-  color: #777;
-  font: 12px Arial, sans-serif;
-  opacity: 0.7;
-  text-decoration: none;
-  z-index: 100;
-}
-
-.github-link:hover {
-  color: #ff1018;
-  opacity: 1;
-  text-decoration: underline;
+#lookupForm label {
+  transform: translateX(-30px);
 }
