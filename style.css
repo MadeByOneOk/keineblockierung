@@ -335,7 +335,7 @@ body {
 #loopButton {
   position: fixed;
   top: 190px;
-  left: 12px;
+  right: 120px;
   z-index: 1000;
   padding: 8px 14px;
   background: #000;
