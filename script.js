@@ -16,6 +16,19 @@ const bassFilter = new Tone.Filter({
 }).toDestination();
 
 let player = null;
+let loopEnabled = false;
+
+const loopButton = document.getElementById("loopButton");
+
+loopButton.addEventListener("click", () => {
+  loopEnabled = !loopEnabled;
+
+  if (player) {
+    player.loop = loopEnabled;
+  }
+
+  loopButton.textContent = loopEnabled ? "LOOP: ON" : "LOOP: OFF";
+});
 
 /* BASS CONTROL */
 function updateBass() {
