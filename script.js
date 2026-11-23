@@ -95,17 +95,15 @@ async function playSong(result) {
     },
 
     onerror: (error) => {
-      message.textContent = "Audiofehler: " + error.message;
-      message.classList.remove("success");
-    }
-  });
+  message.textContent = "Audiofehler: " + error.message;
+  message.classList.remove("success");
+}
+});
 
-  player = nextPlayer;
+player = nextPlayer;
 nextPlayer.loop = loopEnabled;
 nextPlayer.connect(bassFilter);
-
 }
-
 /* LOOKUP SONG */
 async function lookup(url) {
   stopCurrentPlayer();
