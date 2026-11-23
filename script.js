@@ -101,7 +101,9 @@ async function playSong(result) {
   });
 
   player = nextPlayer;
-  nextPlayer.connect(bassFilter);
+nextPlayer.loop = loopEnabled;
+nextPlayer.connect(bassFilter);
+
 }
 
 /* LOOKUP SONG */
